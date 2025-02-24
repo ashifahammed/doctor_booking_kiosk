@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Booking Kiosk</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="step1">
+        <h2>Welcome! Enter Your Details</h2>
+        <input type="text" id="name" placeholder="Enter Your Name" required>
+        <input type="tel" id="phone" placeholder="Enter Phone Number" required>
+        <button onclick="nextStep(2)">Next</button>
+    </div>
+
+    <div class="container hidden" id="step2">
+        <h2>Select Department</h2>
+        <select id="department">
+            <option>Cardiology</option>
+            <option>Neurology</option>
+            <option>General Medicine</option>
+            <option>Orthopedics</option>
+        </select>
+        <button onclick="nextStep(3)">Next</button>
+    </div>
+
+    <div class="container hidden" id="step3">
+        <h2>Available Doctors</h2>
+        <select id="doctor">
+            <option>Dr. A - Available</option>
+            <option>Dr. B - 15 min wait</option>
+            <option>Dr. C - 30 min wait</option>
+        </select>
+        <button onclick="nextStep(4)">Confirm</button>
+    </div>
+
+    <div class="container hidden" id="step4">
+        <h2>Booking Confirmed!</h2>
+        <p id="confirmationMessage"></p>
+        <button onclick="sendMessage()">Send SMS</button>
+    </div>
+
+    <script>
+        function nextStep(step) {
+            document.querySelectorAll('.container').forEach(div => div.classList.add('hidden'));
+            document.getElementById('step' + step).classList.remove('hidden');
+            
+            if (step === 4) {
+                let name = document.getElementById('name').value;
+                let phone = document.getElementById('phone').value;
+                let doctor = document.getElementById('doctor').value;
+                document.getElementById('confirmationMessage').innerText = `Hello ${name}, your appointment with ${doctor} is confirmed.`;
+            }
+        }
+
+        function sendMessage() {
+            alert("SMS Sent: Appointment Confirmed!");
+        }
+    </script>
+</body>
+</html>
